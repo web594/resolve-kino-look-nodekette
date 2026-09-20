@@ -7,7 +7,19 @@ Im Protobuf (pClipFullVer-Body) liegen Grading-Parameter als Eintraege:
 param_id-Namespace um 0x06000000 (varint '.. 80 80 30').
 """
 import re, struct
-from compression import zstd
+try:                                  # Python 3.14+
+    from compression import zstd
+except ImportError:                    # aeltere Python: gleichwertiges Paket
+    import zstandard as _zstd
+
+    class zstd:                        # nur die zwei benutzten Funktionen
+        @staticmethod
+        def decompress(daten):
+            return _zstd.ZstdDecompressor().decompress(daten)
+
+        @staticmethod
+        def compress(daten, stufe=19):
+            return _zstd.ZstdCompressor(level=stufe).compress(daten)
 
 BODY_RE = re.compile(r"(<Body>)([0-9a-f]+)(</Body>)")
 # Eintrag: 1a <len> 08 <varint id> 12 05 0d <4B float>  (len 0x0c/0x0d je nach id-Groesse)

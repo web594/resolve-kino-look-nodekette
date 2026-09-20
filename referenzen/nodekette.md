@@ -1,5 +1,9 @@
 # Die vier Nodes im Einzelnen
 
+Diese Seite erklärt das **Warum** — was jeder Node tut und wie die Werte zustande
+kommen. Wer nur wissen will, **was worauf kommt und was einzustellen ist**, ist im
+[Einstellungsblatt](einstellungsblatt.md) schneller.
+
 Alle Werte sind aus der mitgelieferten Vorlage ausgelesen. Neu auslesen jederzeit:
 
 ```bash
@@ -18,23 +22,32 @@ Danach liegt das Bild in Rec.709 vor — alles Weitere in der Kette rechnet in R
 
 ### Variante „gekauft": Filmemulations-Plugin
 
-`com.rubbermonkey:filmconvertnitrate` — die im Grade gesetzten Werte:
+**FilmConvert Nitrate** (`com.rubbermonkey:filmconvertnitrate`) — die im Grade
+gesetzten Werte:
 
 | Parameter | Wert | Bedeutung |
 |---|---|---|
-| `Make` / `Model` / `Profile` | 34 / 46 / 4 | Kamerahersteller, Modell, Log-Profil (**Indizes**) |
-| `ProfileID` | 1306 | eindeutige Profilkennung |
-| `Film Stock` | 2 | Emulsion (Kunstlicht) |
+| `Make` / `Model` / `Profile` | nach **Namen** wählen, z. B. `Sony` / `FS7` / `S-Log3 S-Gamut3.Cine` | Kamerahersteller, Modell, Log-Profil |
+| `ProfileID` | 1306 | eindeutige Profilkennung — **das ist der stabile Wert** |
+| `Film Stock` | `KD 5213 Vis3` (Listenplatz 2) | Emulsion (Kunstlicht) |
 | `Grain Strength` / `Grain Size` | 15,0 / 1,0 | Kornstärke, 35 mm |
-| `Grain Shadows` … `Grain Highlights` | 1,54 / 13,9 / 16,3 / 10,5 / 1,05 | Kornverteilung über die Tonwerte |
-| `OSC Grain Curve` | `0.0154\|0.139\|0.163\|0.105\|0.0105` | dieselbe Verteilung als Kurve |
+| `Grain Shadows` … `Grain Highlights` | 1,54 / 13,9 / 16,3 / 10,5 / 1,05 | Kornverteilung — **setzt das Plugin selbst**, sobald das Filmmaterial gewählt ist |
+| `OSC Grain Curve` | `0.0154\|0.139\|0.163\|0.105\|0.0105` | dieselbe Verteilung als Kurve, ebenfalls automatisch |
+
+Die fünf Kornwerte sind exakt das Hundertfache der `OSC Grain Curve` der Emulsion —
+sie stehen zwar in der Vorlage, sind aber nichts zum Eintippen. Von Hand einzustellen
+sind nur Kameraprofil, Filmmaterial, `Grain Strength` und `Grain Size`.
 
 Belichtung, Temperatur und Tönung stehen im Plugin bewusst auf 0 — die Feinkorrektur
 passiert erst in Node 2. Der plugin-eigene Lichthof bleibt ungenutzt; er kommt
 kostenlos aus Node 4.
 
-⚠️ Die Auswahlfelder sind **Indizes, keine Namen**. Bei einer anderen Plugin-Version
-kann sich die Zuordnung verschieben — nach dem Übertragen einmal im Bedienfeld prüfen.
+⚠️ **Die Auswahlfelder speichern einen Listenplatz, keinen Namen — und der Platz
+verschiebt sich.** Dasselbe Kameraprofil (`ProfileID` 1306) stand in drei gemessenen
+Fällen auf `34/46/4`, `33/45/3` und `36/48/6`: Die Liste wächst mit jedem zusätzlich
+installierten Kameraprofil, und alles dahinter rutscht. Also **nach dem Namen
+auswählen, nie nachzählen** — und nach dem Übertragen einer Vorlage einmal im
+Bedienfeld prüfen, ob Hersteller, Modell und Profil zum Material passen.
 
 ### Variante „frei": `Filmemulation_SLog3_zu_Rec709.cube`
 
@@ -85,6 +98,15 @@ py rctl.py grade-set gainM=0.93 temp=60 toenung=-19 --base sicherung.drx
 ## Node 3 — Finish
 
 **Aufgabe:** die gestalterische Handschrift. Sitzt bewusst **hinter** dem Weißabgleich.
+
+### Variante „gekauft": eine Rec.709-Finish-LUT
+
+In der mitgelieferten Vorlage ist das `PRISMO – Rec709` aus dem Satz **VisionColor
+OSIRIS**. Jede andere Finish-LUT tut es genauso — nur muss es die **Rec.709-Variante**
+sein, nicht die Log-Variante: Ab Node 1 liegt das Bild bereits in Rec.709 vor. Die
+LUT-Datei selbst liegt aus Lizenzgründen nicht in diesem Repo.
+
+### In beiden Varianten
 
 ```
 Key-Ausgabe-Gain = 0,40        (Parameter-Kennung 0x0c30001d)
@@ -141,6 +163,12 @@ Die wichtigsten gesetzten Werte:
 Farbeinstellungen und Teiltonung; „Effektüberblendung" steuert Vignette, Lichthof,
 Bloom, Filmkorn, Flimmern und Bildfenster. Getrennt dosiert lässt sich gezielt nur eine
 Gruppe wirken lassen — hier: Farbe fast aus (17 %), Effekte voll.
+
+⚠️ **Bildfenster-Weave ist ab Werk eingeschaltet** (`gateWeaveIsEnable` Standard 1,
+Intensität 0,25) und wird von den Vorlagen nicht angefasst — es steht darin also auf
+dem Werkswert „an". Es simuliert das seitliche Wandern des Films im Bildfenster und
+lässt damit ein Stativbild wackeln. Wer sich wundert, warum eine ruhige Einstellung
+plötzlich zittert: **zuerst hier nachsehen**, bevor man stabilisiert.
 
 Filmkorn ist hier bewusst **aus**. In der gekauften Variante kommt das Korn schon aus
 Node 1; wer die freie Variante nutzt und Korn möchte, schaltet es hier ein

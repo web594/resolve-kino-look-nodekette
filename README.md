@@ -18,12 +18,19 @@ Die Reihenfolge ist nicht beliebig: Weißabgleich und Grundbelichtung stehen **v
 kreativen LUT. Sonst verstärkt die LUT einen Farbstich mit, und man korrigiert am Ende
 gegen den eigenen Look an.
 
+> **Du willst nur wissen, was auf welchen Node kommt und was man darin umstellt?**
+> → **[Einstellungsblatt](referenzen/einstellungsblatt.md)** — eine Seite, Node für Node,
+> mit Plugin- bzw. LUT-Namen und allen Werten zum Danebenlegen.
+
 ## Zwei Wege zum selben Aufbau
 
 |  | Node 1 | Node 3 | Node 4 |
 |---|---|---|---|
-| **mit gekauften Werkzeugen** (Standard) | Filmemulations-Plugin mit Kameraprofil | gekaufte Finish-LUT bei 40 % | ResolveFX, in Resolve enthalten |
-| **kostenlos** (`--frei`) | selbst gerechnete LUT | selbst gerechnete LUT bei 40 % | ResolveFX, in Resolve enthalten |
+| **mit gekauften Werkzeugen** (Standard) | OFX **FilmConvert Nitrate** mit Kameraprofil | gekaufte Rec.709-Finish-LUT bei 40 % (in der Vorlage `PRISMO – Rec709` aus VisionColor OSIRIS) | ResolveFX **Film-Look-Erzeuger**, in Resolve enthalten |
+| **kostenlos** (`--frei`) | LUT `Filmemulation_SLog3_zu_Rec709.cube` | LUT `Finish_Kinofarben_Rec709.cube` bei 40 % | ResolveFX **Film-Look-Erzeuger**, in Resolve enthalten |
+
+Was genau in diesen Plugins und LUTs einzustellen ist, steht im
+**[Einstellungsblatt](referenzen/einstellungsblatt.md)**.
 
 Die kostenlose Variante ist **kein Nachbau** der gekauften: die LUTs entstehen aus einem
 gerechneten Modell (Log-Dekodierung nach veröffentlichter Formel, Negativ- und
@@ -50,7 +57,7 @@ Voraussetzungen: DaVinci Resolve Studio (Skript-Schnittstelle aktiv), Python,
 | `vorlagen/` | fertige `.drx`-Ketten (gekauft und frei) inkl. Node-Beschriftungen |
 | `luts/` | die selbst gerechneten LUTs |
 | `werkzeuge/` | LUT-Generatoren, Übertragung, DRX-Werkzeuge, Messung |
-| `referenzen/` | [Nodekette](referenzen/nodekette.md) · [alle Film-Look-Erzeuger-Parameter](referenzen/film-look-erzeuger.md) · [Messwerte](referenzen/messwerte.md) · [gekaufte Werkzeuge](referenzen/gekaufte-werkzeuge.md) · [Fallstricke](referenzen/fallstricke.md) |
+| `referenzen/` | **[Einstellungsblatt](referenzen/einstellungsblatt.md)** (was auf jeden Node kommt und was darin einzustellen ist) · [Nodekette](referenzen/nodekette.md) (warum) · [alle Film-Look-Erzeuger-Parameter](referenzen/film-look-erzeuger.md) · [Messwerte](referenzen/messwerte.md) · [gekaufte Werkzeuge](referenzen/gekaufte-werkzeuge.md) · [Fallstricke](referenzen/fallstricke.md) |
 | `praesentation/` | Foliensatz, der die Kette grafisch erklärt |
 
 ## Werkzeuge, die es so sonst nicht gibt

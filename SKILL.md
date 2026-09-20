@@ -21,6 +21,12 @@ Die Reihenfolge ist nicht beliebig: **Weißabgleich und Grundbelichtung stehen V
 kreativen LUT.** Sonst verstärkt die LUT einen vorhandenen Farbstich mit, und man
 korrigiert am Ende gegen den eigenen Look an.
 
+## Von Hand bauen? → Einstellungsblatt
+
+Wer die Kette nicht überträgt, sondern selbst aufbaut, braucht genau eine Seite:
+**[referenzen/einstellungsblatt.md](referenzen/einstellungsblatt.md)** — Node für Node,
+welches Plugin bzw. welche LUT darauf kommt und welche Werte darin umzustellen sind.
+
 ## Schnellstart
 
 ```bash
@@ -156,7 +162,7 @@ gehören **nicht** in eine Vorlage — in einem anderen Motiv sitzen sie falsch.
 | `vorlagen/` | die fertigen `.drx`-Ketten (gekauft und frei) |
 | `luts/` | die selbst gerechneten LUTs |
 | `werkzeuge/` | LUT-Generatoren, Übertragung, DRX-Werkzeuge, Messung |
-| `referenzen/` | Werte je Node, Messwerte, Fallstricke, gekaufte Werkzeuge |
+| `referenzen/` | **[einstellungsblatt.md](referenzen/einstellungsblatt.md)** — was auf jeden Node kommt und was darin einzustellen ist · Werte je Node, Messwerte, Fallstricke, gekaufte Werkzeuge |
 | `praesentation/` | Foliensatz, der die Kette grafisch erklärt |
 
 Fragen zur Anwendung in der Praxis: [wunder-media.de](https://wunder-media.de)

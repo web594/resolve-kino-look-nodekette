@@ -25,8 +25,9 @@ Kein Korn — das kommt bei Bedarf aus Node 4.
 
 ## Node 3 — Finish-LUT-Satz
 
-**In der Vorlage:** eine Rec.709-Finish-LUT aus einem gekauften LUT-Satz, aufgetragen
-mit 40 % Key-Ausgabe-Gain.
+**In der Vorlage:** `PRISMO – Rec709` aus dem Satz **VisionColor OSIRIS**, aufgetragen
+mit 40 % Key-Ausgabe-Gain. Die LUT-Datei selbst liegt aus Lizenzgründen nicht in
+diesem Repo — jede andere Rec.709-Finish-LUT lässt sich genauso einsetzen.
 
 **Was man dafür bekommt:** einen Katalog fertiger Handschriften, aufeinander abgestimmt,
 jeweils in Varianten für Log- und Rec.709-Eingang. Wer viele verschiedene Looks braucht,
@@ -54,3 +55,8 @@ einer synthetischen Messtafel, siehe [messwerte.md](messwerte.md)). Es wurden da
 entstehen aus dem Modell in den Generator-Skripten. Der Abgleich beschränkt sich auf die
 Belichtungslage — 18-%-Grau auf einen Standardwert zu legen ist eine technische
 Festlegung, keine gestalterische Übernahme.
+
+---
+
+Was in diesen Werkzeugen konkret einzustellen ist, steht im
+[Einstellungsblatt](einstellungsblatt.md).
